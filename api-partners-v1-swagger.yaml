@@ -67,7 +67,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Customer created successfully
+          description: Success
           content:
             application/json:
               schema:
@@ -80,6 +80,38 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
               example: 
                 message: No customer was found with this document
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: Internal Server Error
+
+    patch:
+      tags:
+        - customers
+      summary: Update a customer by document number
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCreateCustomer'
+      responses:
+        '200':
+          description: Customer changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCreateCustomer'
         '500':
           description: Internal Error
           content:
@@ -309,7 +341,7 @@ components:
         phoneType:
           type: string
           enum: 
-            - COMERCIAL
+            - COMMERCIAL
             - PERSONAL
         address:
           allOf:
