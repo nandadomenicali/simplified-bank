@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: Simplified bank - API Partners V1
+  description: |-
+   This is a simplified bank based on the OpenAPI 3.0 specification. Where the main objective is to simplify transactions and interactions between microservices. This project is aimed at professional improvement.
+   
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: domecoderdeveloper@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://simplifiedbank.swagger.io/api/v1
+tags:
+  - name: customers
+    description: Operations about customer
+    
+paths:
+  /customers:
+    post:
+      tags:
+        - customers
+      summary: Create customer
+      description: Registration of a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCreateCustomer'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCreateCustomer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: IN DEFINITION...
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: Internal Server Error
+                
+  /customers/v1/{document}:
+    get:
+      tags:
+        - customers
+      summary: Get a customer by document number
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                name: John Doe
+                email: john@example.com
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    RequestCreateCustomer:
+      type: object
+      required: 
+       - document
+       - email
+       - fullName
+       - mothersName
+       - gender
+       - personType
+       - birthDate
+       - phoneNumber
+      properties:
+        document:
+          type: string
+          description: "Customer document - CPF/CNPJ"
+          example: "12345678910"
+          maximum: 14
+          minimum: 11
+        email:
+          type: string
+          description: "Customer e-mail"
+          example: "customer@email.com"
+          maximum: 150
+          minimum: 15
+        login:
+          type: string
+          description: "Customer reference"
+          example: "@customer"
+          maximum: 100
+          minimum: 0
+        fullName: 
+          type: string
+          description: "Customer full name"
+          example: "Isaque Jose da Silva"
+          maximum: 100
+          minimum: 20
+        mothersName: 
+          type: string
+          description: "Customer's mother's name"
+          example: "Sara Jose da Silva"
+          maximum: 100
+          minimum: 20
+        fathersName: 
+          type: string
+          description: "Customer's father's name"
+          example: "Abraao Jose da Silva"
+          maximum: 100
+          minimum: 20
+        gender:
+          type: integer
+          description: "Customer gender"
+          example: 10
+        personType: 
+          type: string
+          description: "Type of nature of the person (F: physical | P: legal)"
+          enum: 
+            - F
+            - J
+          maximum: 1
+        birthDate:
+          type: string
+          format: date
+          description: "Customer's date of birth"
+          example: "1990-01-01"
+          maximum: 10
+          minimum: 10
+        phoneNumber:
+          type: number
+          description: "Customer cell phone"
+          example: 
+        
+    ResponseCreateCustomer:
+      type: object
+      properties: 
+        document: 
+          type: string
+          example: "12345678910"
+      
+  
+
+      
