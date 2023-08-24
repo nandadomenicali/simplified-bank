@@ -177,11 +177,11 @@ components:
           enum: 
             - COMERCIAL
             - PERSONAL
-        adress:
+        address:
           allOf:
-            - $ref: "#/components/schemas/RequestCustomerAdress"
+            - $ref: "#/components/schemas/RequestCustomerAddress"
             
-    RequestCustomerAdress:
+    RequestCustomerAddress:
       type: object
       properties:
         postcode:
@@ -311,6 +311,6 @@ components:
           enum: 
             - COMERCIAL
             - PERSONAL
-        adress:
+        address:
           allOf:
-            - $ref: "#/components/schemas/RequestCustomerAdress"
+            - $ref: "#/components/schemas/RequestCustomerAddress"
